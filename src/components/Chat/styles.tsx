@@ -7,4 +7,5 @@ export const Container = styled.div`
   overflow: scroll;
   display: flex;
   flex-direction: column;
+  flex-direction: column-reverse;
 `;

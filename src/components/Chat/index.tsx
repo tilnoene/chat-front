@@ -10,6 +10,12 @@ import { Container } from './styles';
 
 type Message = {
   text: string;
+  createdAt: string;
+  updatedAt?: string;
+  user: { 
+    username: string,
+    name: string,
+  }
 }
 
 type Payload = {
@@ -42,12 +48,8 @@ const Chat = ({ title }: { title: string }) => {
   }, []);
 
   useEffect(() => {
-    const receivedMessage = (message: Message) => {
-      const newMessage: Message = {
-        text: message.text,
-      }
-      
-      setMessages(() => [ ...messages, newMessage ]);
+    const receivedMessage = ( message: Message ) => {
+      setMessages(() => [ message, ...messages ]);
     }
     
     socket.on('msgToClient', (message: Message) => {
