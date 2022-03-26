@@ -1,34 +1,45 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import * as uuid from 'uuid';
 
 import ChatMessage from '../ChatMessage';
+import api from '../services/api';
 
 import { Container } from './styles';
 
 type Message = {
-  id: string;
-  name: string;
   text: string;
 }
 
 type Payload = {
-  name: string;
   text: string;
 }
 
-const socket = io('http://localhost:5050');
+const socket = io('http://localhost:5050', {
+  transportOptions: {
+    polling: {
+      extraHeaders: {
+        Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+      }
+    }
+  }
+});
 
 const Chat = ({ title }: { title: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [name, setName] = useState<string>(''); // author
   const [text, setText] = useState<string>('');
+
+  useEffect(() => {
+    api.get('/messages')
+      .then((response) => {
+        const previousMessages: Message[] = response.data;
+        setMessages(previousMessages);
+      })
+      .catch(error => console.error(error));
+  })
 
   useEffect(() => {
     const receivedMessage = (message: Message) => {
       const newMessage: Message = {
-        id: uuid.v4(),
-        name: message.name,
         text: message.text,
       }
       
@@ -36,18 +47,18 @@ const Chat = ({ title }: { title: string }) => {
     }
     
     socket.on('msgToClient', (message: Message) => {
+      console.log(message);
       receivedMessage(message);
     })
-  }, [messages, name, text]);
+  }, []);
 
   const validateInputMessage = () => {
-    return name.length > 0 && text.length > 0;
+    return text.length > 0;
   }
   
   const sendMessage = () => {
     if (validateInputMessage()) {
       const message: Payload = {
-        name,
         text
       }
 
@@ -61,11 +72,6 @@ const Chat = ({ title }: { title: string }) => {
       <h1>{title}</h1>
 
       <input
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder='Escreva seu nome'
-      />
-      <input
         value={text}
         onChange={e => setText(e.target.value)}
         placeholder='Escreva sua mensagem'
@@ -74,12 +80,16 @@ const Chat = ({ title }: { title: string }) => {
         Enviar
       </button>
       
-      {messages.map((message: Message) => (
-        <ChatMessage
-          key={message.id}
-          name={message.name}
-          text={message.text}
-        />
+      {messages.map((message: any, index: number) => (
+        message.isSystem ?
+          <h5 key={index}><i>{message.text}</i></h5>
+        :
+          <ChatMessage
+            key={index}
+            // name={message.name}
+            name={message.user && message.user.username}
+            text={message.text}
+          />
       ))}
     </Container>
   );
