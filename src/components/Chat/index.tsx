@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-import ChatMessage from '../ChatMessage';
+import ChatMessageLeft from '../ChatMessageLeft';
+import ChatMessageRight from '../ChatMessageRight';
 import ChatMessageSystem from '../ChatMessageSystem';
 import api from '../services/api';
 
@@ -28,6 +29,8 @@ const socket = io('http://localhost:5050', {
 const Chat = ({ title }: { title: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>('');
+
+  const currentUserUsername = 'tilnoene';
 
   useEffect(() => {
     api.get('/messages')
@@ -87,13 +90,24 @@ const Chat = ({ title }: { title: string }) => {
             key={index}
             text={message.text}
           />
-        :
-          <ChatMessage
-            key={index}
-            // name={message.name}
-            name={message.user && message.user.username}
-            text={message.text}
-          />
+        : (
+          message.user && message.user.username === currentUserUsername ?
+            <ChatMessageRight
+              key={index}
+              name={message.user && message.user.name}
+              username={message.user && message.user.username}
+              text={message.text}
+              date={message.createdAt}
+            />
+            :
+            <ChatMessageLeft
+              key={index}
+              name={message.user && message.user.name}
+              username={message.user && message.user.username}
+              text={message.text}
+              date={message.createdAt}
+            />
+        )
       ))}
     </Container>
   );

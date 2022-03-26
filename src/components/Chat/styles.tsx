@@ -5,4 +5,6 @@ export const Container = styled.div`
   width: 70%;
   height: 100vh;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
 `;
