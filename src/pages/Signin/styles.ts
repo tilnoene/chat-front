@@ -8,4 +8,12 @@ export const Container = styled.div`
   gap: 12px;
   justify-content: center;
   align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+  }
 `;

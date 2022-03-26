@@ -1,22 +1,14 @@
 import './App.css';
 
-import Chat from './components/Chat';
-import Sidebar from './components/Sidebar';
+import UserProvider from './context/UserContext';
 
-import styled from 'styled-components';
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  height: 100vh;
-`;
+import Router from './services/router';
 
 function App() {
   return (
-    <Container>
-      <Sidebar />
-      <Chat title='Sala 01' />
-    </Container>
+    <UserProvider>
+      <Router />
+    </UserProvider>
   );
 }
 

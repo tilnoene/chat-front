@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
+import { useUser } from '../../context/UserContext';
+
 import ChatMessageLeft from '../ChatMessageLeft';
 import ChatMessageRight from '../ChatMessageRight';
 import ChatMessageSystem from '../ChatMessageSystem';
+
 import api from '../../services/api';
 
 import { Container } from './styles';
+import { useSocket } from '../../context/SocketContext';
 
 type Message = {
+  id: number,
   text: string;
   createdAt: string;
   updatedAt?: string;
@@ -22,24 +27,19 @@ type Payload = {
   text: string;
 }
 
-const socket = io('http://localhost:5050', {
-  transportOptions: {
-    polling: {
-      extraHeaders: {
-        Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-      }
-    }
-  }
-});
-
 const Chat = ({ title }: { title: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>('');
 
-  const currentUserUsername = 'tilnoene';
+  const { accessToken, username } = useUser();
+  const { socket } = useSocket();
 
   useEffect(() => {
-    api.get('/messages')
+    api.get('/messages', { 
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      }
+    })
       .then((response) => {
         const previousMessages: Message[] = response.data;
         setMessages(previousMessages);
@@ -56,7 +56,7 @@ const Chat = ({ title }: { title: string }) => {
       console.log(message);
       receivedMessage(message);
     })
-  }, [messages]);
+  }, [messages, socket]);
 
   const validateInputMessage = () => {
     return text.length > 0;
@@ -86,16 +86,16 @@ const Chat = ({ title }: { title: string }) => {
         Enviar
       </button>
       
-      {messages.map((message: any, index: number) => (
+      {messages.map((message: any) => (
         message.isSystem ?
           <ChatMessageSystem
-            key={index}
+            key={message.id}
             text={message.text}
           />
         : (
-          message.user && message.user.username === currentUserUsername ?
+          message.user && message.user.username === username ?
             <ChatMessageRight
-              key={index}
+              key={message.id}
               name={message.user && message.user.name}
               username={message.user && message.user.username}
               text={message.text}
@@ -103,7 +103,7 @@ const Chat = ({ title }: { title: string }) => {
             />
             :
             <ChatMessageLeft
-              key={index}
+              key={message.id}
               name={message.user && message.user.name}
               username={message.user && message.user.username}
               text={message.text}
