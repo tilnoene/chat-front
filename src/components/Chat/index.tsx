@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import ChatMessageLeft from '../ChatMessageLeft';
 import ChatMessageRight from '../ChatMessageRight';
 import ChatMessageSystem from '../ChatMessageSystem';
-import api from '../services/api';
+import api from '../../services/api';
 
 import { Container } from './styles';
 
@@ -39,7 +39,7 @@ const Chat = ({ title }: { title: string }) => {
         setMessages(previousMessages);
       })
       .catch(error => console.error(error));
-  })
+  }, []);
 
   useEffect(() => {
     const receivedMessage = (message: Message) => {
@@ -54,7 +54,7 @@ const Chat = ({ title }: { title: string }) => {
       console.log(message);
       receivedMessage(message);
     })
-  }, []);
+  }, [messages]);
 
   const validateInputMessage = () => {
     return text.length > 0;

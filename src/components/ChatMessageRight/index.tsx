@@ -1,3 +1,4 @@
+import { formatDate } from '../../services/utils';
 import { Container, Content } from './styles';
 
 const ChatMessageRight = (
@@ -21,7 +22,7 @@ const ChatMessageRight = (
         <p>{text}</p>
       </Content>
       
-      <footer><p>{date}</p></footer>
+      <footer><p>{formatDate(date)}</p></footer>
     </Container>
   );
 }
