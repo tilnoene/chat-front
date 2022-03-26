@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 import ChatMessage from '../ChatMessage';
+import ChatMessageSystem from '../ChatMessageSystem';
 import api from '../services/api';
 
 import { Container } from './styles';
@@ -82,7 +83,10 @@ const Chat = ({ title }: { title: string }) => {
       
       {messages.map((message: any, index: number) => (
         message.isSystem ?
-          <h5 key={index}><i>{message.text}</i></h5>
+          <ChatMessageSystem
+            key={index}
+            text={message.text}
+          />
         :
           <ChatMessage
             key={index}
