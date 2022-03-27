@@ -22,7 +22,6 @@ const Signin = () => {
     e.preventDefault();
 
     // valida os dados
-
     api.post('/auth/signin', {
       email,
       password,

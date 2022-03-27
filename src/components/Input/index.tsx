@@ -42,6 +42,7 @@ const Input = ({
         minLength={minLength}
         maxLength={maxLength}
         width={width}
+        onChange={onChange}
         {...props}
       />
       <Span>{placeholder}</Span>
