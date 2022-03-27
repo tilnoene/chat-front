@@ -3,24 +3,24 @@ import { useState, createContext, useContext } from 'react';
 type UserContextType = {
   accessToken: string;
   setAccessToken: (accessToken: string) => void;
-  username: string;
-  setUsername: (username: string) => void;
+  userUsername: string;
+  setUserUsername: (username: string) => void;
 };
 
 export const UserContext = createContext<UserContextType | null>(null);
 
 const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [accessToken, setAccessTokenProvider] = useState<string>(sessionStorage.getItem('accessToken') || '');
-  const [username, setUsernameProvider] = useState<string>(sessionStorage.getItem('username') || '');
+  const [userUsername, setUserUsernameProvider] = useState<string>(sessionStorage.getItem('userUsername') || '');
 
   const setAccessToken = ( accessToken: string ): void => {
     setAccessTokenProvider(accessToken);
     sessionStorage.setItem('accessToken', accessToken);
   }
 
-  const setUsername = ( username: string ): void => {
-    setUsernameProvider(username);
-    sessionStorage.setItem('username', username);
+  const setUserUsername = ( username: string ): void => {
+    setUserUsernameProvider(username);
+    sessionStorage.setItem('userUsername', username);
   }
 
   return (
@@ -28,8 +28,8 @@ const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
       value={{
         accessToken, 
         setAccessToken, 
-        username, 
-        setUsername
+        userUsername,
+        setUserUsername
       }}
     >
       {children}
@@ -42,9 +42,9 @@ export const useUser = () => {
 
   if (!context) throw new Error('useUser must be used within a UserProvider');
 
-  const { accessToken, setAccessToken, username, setUsername } = context;
+  const { accessToken, setAccessToken, userUsername, setUserUsername } = context;
 
-  return { accessToken, setAccessToken, username, setUsername };
+  return { accessToken, setAccessToken, userUsername, setUserUsername };
 };
 
 export default UserProvider;

@@ -10,61 +10,75 @@ import { Container } from './styles';
 
 import api from '../../services/api';
 
-const Signin = () => {
+const SignIn = () => {
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] =
+    useState<string>('');
 
-  const { setAccessToken, setUsername } = useUser();
+  const { setAccessToken, setUserUsername } =
+    useUser();
 
   const navigate = useNavigate();
 
-  const handleSignin = ( e: any, email: string, password: string ): void => {
+  const handleSignIn = (
+    e: any,
+    email: string,
+    password: string,
+  ): void => {
     e.preventDefault();
 
     // valida os dados
-    api.post('/auth/signin', {
-      email,
-      password,
-    })
+    api
+      .post('/auth/signin', {
+        email,
+        password,
+      })
       .then((response) => {
-        const { accessToken, username } = response.data;
-        
+        const { accessToken, username } =
+          response.data;
+
         setAccessToken(accessToken);
-        setUsername(username);
+        setUserUsername(username);
 
         setEmail('');
         setPassword('');
-        
+
         navigate('/');
       })
       .catch((error) => console.error(error));
-  }
+  };
 
   return (
     <Container>
-      <form onSubmit={(e) => handleSignin(e, email, password)}>
-        <Input 
+      <form
+        onSubmit={(e) =>
+          handleSignIn(e, email, password)
+        }
+      >
+        <Input
           placeholder='Email'
-          type='email' 
+          type='email'
           value={email}
           required
-          onChange={(e: any) => setEmail(e.target.value)}
+          onChange={(e: any) =>
+            setEmail(e.target.value)
+          }
         />
 
-        <Input 
+        <Input
           placeholder='Senha'
-          type='password' 
+          type='password'
           value={password}
           required
-          onChange={(e: any) => setPassword(e.target.value)}
+          onChange={(e: any) =>
+            setPassword(e.target.value)
+          }
         />
 
-        <Button type='submit'>
-          Login
-        </Button>
+        <Button type='submit'>Entrar</Button>
       </form>
     </Container>
   );
-}
+};
 
-export default Signin;
+export default SignIn;

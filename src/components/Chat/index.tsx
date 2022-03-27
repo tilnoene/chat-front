@@ -30,7 +30,7 @@ const Chat = ({ title }: { title: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>('');
 
-  const { accessToken, username } = useUser();
+  const { accessToken, userUsername } = useUser();
   const { socket } = useSocket();
 
   const getMessages = () => {
@@ -97,7 +97,7 @@ const Chat = ({ title }: { title: string }) => {
             text={message.text}
           />
         : (
-          message.user && message.user.username === username ?
+          message.user && message.user.username === userUsername ?
             <ChatMessageRight
               key={message.id}
               name={message.user && message.user.name}
