@@ -5,6 +5,7 @@ import { Container } from './styles';
 
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
+import { Input } from '../../components/Input/styles';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
@@ -40,7 +41,7 @@ const Signin = () => {
   return (
     <Container>
       <form onSubmit={(e) => handleSignin(e, email, password)}>
-        <input 
+        <Input 
           name='Email' 
           placeholder='Email'
           type='email' 
@@ -48,7 +49,7 @@ const Signin = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input 
+        <Input 
           name='Senha' 
           placeholder='Senha'
           type='password' 
