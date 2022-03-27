@@ -6,6 +6,11 @@ import { useUser } from '../../context/UserContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import {
+  ToastContainer,
+  toast,
+} from 'react-toastify';
+
 import { Container } from './styles';
 
 import api from '../../services/api';
@@ -45,7 +50,22 @@ const SignIn = () => {
 
         navigate('/');
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(
+          'Ocorreu um erro ao entrar!',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          },
+        );
+
+        console.error(error);
+      });
   };
 
   return (
@@ -77,6 +97,18 @@ const SignIn = () => {
 
         <Button type='submit'>Entrar</Button>
       </form>
+
+      <ToastContainer
+        position='top-right'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Container>
   );
 };
