@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+
+import { useUser } from '../../context/UserContext';
+
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import { Container } from './styles';
 
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../context/UserContext';
-import { Input } from '../../components/Input/styles';
+import api from '../../services/api';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
@@ -42,24 +45,24 @@ const Signin = () => {
     <Container>
       <form onSubmit={(e) => handleSignin(e, email, password)}>
         <Input 
-          name='Email' 
           placeholder='Email'
           type='email' 
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          required
+          onChange={(e: any) => setEmail(e.target.value)}
         />
 
         <Input 
-          name='Senha' 
           placeholder='Senha'
           type='password' 
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          required
+          onChange={(e: any) => setPassword(e.target.value)}
         />
 
-        <button type='submit'>
+        <Button type='submit'>
           Login
-        </button>
+        </Button>
       </form>
     </Container>
   );

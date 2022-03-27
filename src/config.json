@@ -1,11 +1,12 @@
 {
   "SOCKET_URL": "http://localhost:5050",
   "colors": {
-    "background": "#FFFFFF",
+    "primaryBackground": "#FFFFFF",
     "primary": "#38A3A5",
-    "primaryBorder": "#000000",
-    "primaryTitle": "#000000",
+    "primaryBorder": "#38A3A5",
+    "primaryTitle": "#38A3A5",
     "secondaryBackground": "#38A3A5",
+    "primaryText": "#e5e5e5",
     "secondaryText": "#e5e5e5"
   }
 }
