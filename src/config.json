@@ -1,0 +1,7 @@
+{
+  "SOCKET_URL": "http://localhost:5050",
+  "colors": {
+    "background": "#FFFFFF",
+    "primary": "#38A3A5"
+  }
+}

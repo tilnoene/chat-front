@@ -24,10 +24,10 @@ const Signin = () => {
       password,
     })
       .then((response) => {
-        const { access_token } = response.data;
+        const { accessToken, username } = response.data;
         
-        setAccessToken(access_token);
-        setUsername('tilnoene');
+        setAccessToken(accessToken);
+        setUsername(username);
 
         setEmail('');
         setPassword('');

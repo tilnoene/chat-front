@@ -1,7 +1,9 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import io from 'socket.io-client';
 
 import { useUser } from './UserContext';
+
+import config from '../config.json';
 
 type SocketContextType = {
   socket: any,
@@ -12,15 +14,17 @@ export const SocketContext = createContext<SocketContextType | null>(null);
 const SocketProvider: React.FC<React.ReactNode> = ({ children }) => {
   const { accessToken } = useUser();
   
-  const socket = io('http://localhost:5050', {
-    transportOptions: {
-      polling: {
-        extraHeaders: {
-          Authorization: `Bearer ${accessToken}`,
+  const socket = useMemo(() => (
+    io(config.SOCKET_URL, {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            Authorization: `Bearer ${accessToken}`,
+          }
         }
       }
-    }
-  });
+    })
+  ), [accessToken]);
 
   return (
     <SocketContext.Provider

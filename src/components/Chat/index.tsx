@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
 
 import { useUser } from '../../context/UserContext';
 
@@ -34,7 +33,7 @@ const Chat = ({ title }: { title: string }) => {
   const { accessToken, username } = useUser();
   const { socket } = useSocket();
 
-  useEffect(() => {
+  const getMessages = () => {
     api.get('/messages', { 
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -42,21 +41,26 @@ const Chat = ({ title }: { title: string }) => {
     })
       .then((response) => {
         const previousMessages: Message[] = response.data;
+
         setMessages(previousMessages);
       })
       .catch(error => console.error(error));
+  }
+
+  const receivedMessage = ( message: Message ) => {
+    setMessages(state => [ message, ...state ]);
+  }
+
+  useEffect(() => {
+    getMessages();
   }, []);
 
   useEffect(() => {
-    const receivedMessage = ( message: Message ) => {
-      setMessages(() => [ message, ...messages ]);
-    }
-    
     socket.on('msgToClient', (message: Message) => {
       console.log(message);
       receivedMessage(message);
     })
-  }, [messages, socket]);
+  }, [socket]);
 
   const validateInputMessage = () => {
     return text.length > 0;
