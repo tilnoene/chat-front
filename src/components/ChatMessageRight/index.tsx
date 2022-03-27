@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { formatDate } from '../../services/utils';
 import { Container, Content } from './styles';
 
@@ -28,4 +27,4 @@ const ChatMessageRight = (
   );
 }
 
-export default memo(ChatMessageRight);
+export default ChatMessageRight;

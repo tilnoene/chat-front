@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Container } from './styles';
 
 const ChatMessageSystem = ({ text }: { text: string }) => {
@@ -9,4 +8,4 @@ const ChatMessageSystem = ({ text }: { text: string }) => {
   );
 }
 
-export default memo(ChatMessageSystem);
+export default ChatMessageSystem;
