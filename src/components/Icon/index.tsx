@@ -11,7 +11,7 @@ const Icon = ({
   alt: string;
   size?: 'small' | 'medium' | 'large';
   cursor?: string;
-  onClick: any;
+  onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
 }) => {
   const sizes = {
     small: {

@@ -68,7 +68,11 @@ export const Span = styled.span`
     color 0.3s ease;
 `;
 
-export const InputIcon = styled.img`
+type InputIconType = {
+  onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
+}
+
+export const InputIcon = styled.img<InputIconType>`
   cursor: pointer;
   width: 23px;
   height: 23px;

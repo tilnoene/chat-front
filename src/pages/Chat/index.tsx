@@ -12,13 +12,7 @@ import Button from '../../components/Button';
 
 import { ScrollbarProps, Scrollbars } from 'react-custom-scrollbars';
 
-import {
-  Container,
-  ContainerChat,
-  ContainerFooter,
-  ContainerHeader,
-  ContainerMessages,
-} from './styles';
+import { Container, ContainerChat, ContainerFooter, ContainerHeader, ContainerMessages } from './styles';
 
 import api from '../../services/api';
 import { toastErrorProps } from '../../services/utils';
@@ -76,8 +70,8 @@ const Chat = () => {
           } else {
             toast.error(error.message, toastErrorProps);
           }
-        } catch (noErrorMessage) {
-          toast.error('There was an error loading messages.', toastErrorProps);
+        } catch {
+          toast.error('There was an error loading messages', toastErrorProps);
         }
       });
   };
@@ -99,9 +93,7 @@ const Chat = () => {
     });
 
     socket.on('disconnectedUser', (user: User) => {
-      setConnectedUsers((state) =>
-        state.filter((connectedUser) => connectedUser.id !== user.id),
-      );
+      setConnectedUsers((state) => state.filter((connectedUser) => connectedUser.id !== user.id));
     });
   }, []);
 
@@ -109,7 +101,7 @@ const Chat = () => {
     return text.length > 0;
   };
 
-  const handleSendMessage = (e: any) => {
+  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (validateInputMessage()) {

@@ -1,12 +1,12 @@
 import { ContainerButton } from './styles';
 
 const Button = ({
-  children,
   type = 'button',
+  children = null,
   width = '100%',
   ...props
 }: {
-  children?: any,
+  children?: JSX.Element | string | null,
   type?: 'submit' | 'reset' | 'button',
   width?: string,
 }) => {

@@ -12,9 +12,9 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
 const ProtectedRoute = ({
-  children,
+  children = null,
 }: {
-  children: any;
+  children?: JSX.Element | null;
 }) => {
   const { accessToken } = useUser();
 

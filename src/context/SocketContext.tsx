@@ -1,12 +1,12 @@
 import { createContext, useContext, useMemo } from 'react';
-import io from 'socket.io-client';
+import io, { Socket } from 'socket.io-client';
 
 import { useUser } from './UserContext';
 
 import config from '../config.json';
 
 type SocketContextType = {
-  socket: any,
+  socket: Socket,
 };
 
 export const SocketContext = createContext<SocketContextType | null>(null);

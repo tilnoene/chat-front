@@ -16,6 +16,7 @@ type Message = {
   text: string;
   createdAt: string;
   updatedAt?: string;
+  isSystem?: boolean;
   user: { 
     username: string,
     name: string,
@@ -90,7 +91,7 @@ const Chat = ({ title }: { title: string }) => {
         Enviar
       </button>
       
-      {messages.map((message: any) => (
+      {messages.map((message) => (
         message.isSystem ?
           <ChatMessageSystem
             key={message.id}

@@ -27,7 +27,7 @@ const Input = ({
   type?: 'text' | 'password' | 'email' | 'search',
   disabled?: boolean,
   width?: string,
-  onClick?: any,
+  onClick?: React.MouseEventHandler<HTMLImageElement> | undefined,
   onChange?: any,
 }) => {
   const [showPassword, setShowPassword] = useState(false);

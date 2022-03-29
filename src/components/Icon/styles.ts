@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 type IconImageType = {
   cursor: string;
-  width: string,
-  height: string,
+  width: string;
+  height: string;
+  onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
 }
 
 export const IconImage = styled.img<IconImageType>`

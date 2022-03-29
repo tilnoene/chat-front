@@ -14,6 +14,7 @@ import {
 import { Container } from './styles';
 
 import api from '../../services/api';
+import { toastErrorProps } from '../../services/utils';
 
 const SignUp = () => {
   const [name, setName] = useState<string>('');
@@ -29,7 +30,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSignUp = (
-    e: any,
+    e: React.FormEvent<HTMLFormElement>,
     name: string,
     username: string,
     email: string,
@@ -45,9 +46,8 @@ const SignUp = () => {
         email,
         password,
       })
-      .then((response) => {
-        const { accessToken, username } =
-          response.data;
+      .then(({ data }) => {
+        const { accessToken, username } = data;
 
         setAccessToken(accessToken);
         setUserUsername(username);
@@ -58,20 +58,17 @@ const SignUp = () => {
         navigate('/');
       })
       .catch((error) => {
-        toast.error(
-          'Ocorreu um erro ao se registrar!',
-          {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          },
-        );
-
-        console.error(error);
+        try {
+          toast.error(
+            error.message,
+            toastErrorProps,
+          );
+        } catch {
+          toast.error(
+            'There was an error on sign up',
+            toastErrorProps,
+          );
+        }
       });
   };
 
