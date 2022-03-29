@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-} from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useUser } from '../../context/UserContext';
 import { useSocket } from '../../context/SocketContext';
@@ -14,10 +10,7 @@ import ChatMessageSystem from '../../components/ChatMessageSystem';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import {
-  ScrollbarProps,
-  Scrollbars,
-} from 'react-custom-scrollbars';
+import { ScrollbarProps, Scrollbars } from 'react-custom-scrollbars';
 
 import {
   Container,
@@ -29,10 +22,7 @@ import {
 
 import api from '../../services/api';
 import { toastErrorProps } from '../../services/utils';
-import {
-  toast,
-  ToastContainer,
-} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 type Message = {
@@ -50,10 +40,15 @@ type Payload = {
   text: string;
 };
 
+type User = {
+  id: number;
+  username: string;
+};
+
 const Chat = () => {
-  const [messages, setMessages] = useState<
-    Message[]
-  >([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
+
   const [text, setText] = useState<string>('');
 
   const { accessToken, userUsername } = useUser();
@@ -70,8 +65,7 @@ const Chat = () => {
         },
       })
       .then((response) => {
-        const previousMessages: Message[] =
-          response.data;
+        const previousMessages: Message[] = response.data;
 
         setMessages(previousMessages);
       })
@@ -80,37 +74,36 @@ const Chat = () => {
           if (error.statusCode === 401) {
             navigate('/signin');
           } else {
-            toast.error(
-              error.message,
-              toastErrorProps,
-            );
+            toast.error(error.message, toastErrorProps);
           }
         } catch (noErrorMessage) {
-          toast.error(
-            'There was an error loading messages.',
-            toastErrorProps,
-          );
+          toast.error('There was an error loading messages.', toastErrorProps);
         }
       });
   };
 
-  const receivedMessage = (message: Message) => {
-    setMessages((state) => [message, ...state]);
-  };
-
   useEffect(() => {
     getMessages();
-  }, []);
 
-  useEffect(() => {
-    socket.on(
-      'msgToClient',
-      (message: Message) => {
-        console.log(message);
-        receivedMessage(message);
-      },
-    );
-  }, [socket]);
+    // recebe lista de usuários conectados
+    socket.emit('firstConnect', (users: User[]) => {
+      setConnectedUsers(users);
+    });
+
+    socket.on('msgToClient', (message: Message) => {
+      setMessages((state) => [message, ...state]);
+    });
+
+    socket.on('connectedUser', (user: User) => {
+      setConnectedUsers((state) => [...state, user]);
+    });
+
+    socket.on('disconnectedUser', (user: User) => {
+      setConnectedUsers((state) =>
+        state.filter((connectedUser) => connectedUser.id !== user.id),
+      );
+    });
+  }, []);
 
   const validateInputMessage = () => {
     return text.length > 0;
@@ -133,41 +126,28 @@ const Chat = () => {
     <Container>
       <Sidebar />
       <ContainerChat>
-        <ContainerHeader></ContainerHeader>
+        <ContainerHeader>
+          {connectedUsers.map((user) => (
+            <p key={user.id}>{user.username}, </p>
+          ))}
+        </ContainerHeader>
         <ContainerMessages>
           {messages.map((message: any) =>
             message.isSystem ? (
-              <ChatMessageSystem
-                key={message.id}
-                text={message.text}
-              />
-            ) : message.user &&
-              message.user.username ===
-                userUsername ? (
+              <ChatMessageSystem key={message.id} text={message.text} />
+            ) : message.user && message.user.username === userUsername ? (
               <ChatMessageRight
                 key={message.id}
-                name={
-                  message.user &&
-                  message.user.name
-                }
-                username={
-                  message.user &&
-                  message.user.username
-                }
+                name={message.user && message.user.name}
+                username={message.user && message.user.username}
                 text={message.text}
                 date={message.createdAt}
               />
             ) : (
               <ChatMessageLeft
                 key={message.id}
-                name={
-                  message.user &&
-                  message.user.name
-                }
-                username={
-                  message.user &&
-                  message.user.username
-                }
+                name={message.user && message.user.name}
+                username={message.user && message.user.username}
                 text={message.text}
                 date={message.createdAt}
               />
@@ -175,24 +155,17 @@ const Chat = () => {
           )}
         </ContainerMessages>
 
-        <ContainerFooter
-          onSubmit={handleSendMessage}
-        >
+        <ContainerFooter onSubmit={handleSendMessage}>
           <Input
             placeholder="Escrever uma mensagem..."
             required
             minLength={1}
             maxLength={2000}
             value={text}
-            onChange={(e: any) =>
-              setText(e.target.value)
-            }
+            onChange={(e: any) => setText(e.target.value)}
           />
 
-          <Button
-            type="submit"
-            width="80px"
-          ></Button>
+          <Button type="submit" width="80px"></Button>
         </ContainerFooter>
 
         <ToastContainer
