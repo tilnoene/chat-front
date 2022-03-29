@@ -4,7 +4,7 @@ import eye_icon from '../../assets/eye-icon.svg';
 import eye_blocked_icon from '../../assets/eye-blocked-icon.svg';
 import search_icon from '../../assets/search-icon.svg';
 
-import { Label, InputStyle, Span, InputIcon } from './styles';
+import { Container, InputStyle, Span, InputIcon } from './styles';
 
 const Input = ({
   placeholder = '',
@@ -33,7 +33,7 @@ const Input = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Label width={width}>
+    <Container width={width}>
       <InputStyle
         type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
         defaultValue={value}
@@ -62,7 +62,7 @@ const Input = ({
           onClick={disabled ? undefined : onClick} 
         />
       )}
-    </Label>
+    </Container>
   );
 };
 

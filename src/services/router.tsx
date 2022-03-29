@@ -7,7 +7,7 @@ import {
 import SocketProvider from '../context/SocketContext';
 import { useUser } from '../context/UserContext';
 
-import Home from '../pages/Home';
+import Chat from '../pages/Chat';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
@@ -34,7 +34,7 @@ const Router = () => (
         element={
           <ProtectedRoute>
             <SocketProvider>
-              <Home />
+              <Chat />
             </SocketProvider>
           </ProtectedRoute>
         }

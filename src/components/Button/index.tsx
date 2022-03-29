@@ -6,7 +6,7 @@ const Button = ({
   width = '100%',
   ...props
 }: {
-  children: any,
+  children?: any,
   type?: 'submit' | 'reset' | 'button',
   width?: string,
 }) => {

@@ -16,13 +16,12 @@ const ChatMessageLeft = (
 ) => {
   return (
     <Container>
-      <h3>{name} <i>({username})</i></h3>
-
       <Content>
+        <h4>{name}</h4>
         <p>{text}</p>
       </Content>
       
-      <footer><p>{formatDate(date)}</p></footer>
+      { /* <footer><p>{formatDate(date)}</p></footer> */ }
     </Container>
   );
 }

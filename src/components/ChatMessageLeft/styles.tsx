@@ -1,37 +1,32 @@
 import styled from 'styled-components';
 
+import config from '../../config.json';
+
 export const Container = styled.div`
-  background-color: violet;
-  width: 45%;
-  border-radius: 0 10px 10px 10px;
-  margin: 12px 0;
+  background: ${config.colors.gray200};
 
-  h3 {
-    padding: 8px 0 0 12px;
-    margin: 0;
-    font-size: 18px;
-
-    i {
-      font-size: 1em;
-      padding: 8px 0;
-      margin: 0;
-      color: #505050;
-    }
-  }
+  align-self: flex-start;
+  
+  width: 280px;
+  border-radius: 0 12px 12px 12px;
+  padding: 12px 14px;
+  margin-bottom: 32px;
 
   footer > p {
-    text-align: right;
-    padding: 8px 10px;
-    margin: 0;
     color: #555555;
+    font-size: 14px;
+    margin-bottom: -32px;
   }
 `;
 
 export const Content = styled.div`
+  h4 {
+    font-size: 14px;
+    color: ${config.colors.gray700};
+  }
+
   p {
-    padding: 8px 12px;
-    margin: 0;
     text-align: left;
-    color: #000000;
+    color: ${config.colors.primaryText};;
   }
 `;

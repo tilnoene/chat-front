@@ -6,7 +6,11 @@
     "primaryBorder": "#38A3A5",
     "primaryTitle": "#38A3A5",
     "secondaryBackground": "#38A3A5",
-    "primaryText": "#e5e5e5",
-    "secondaryText": "#e5e5e5"
+    "primaryText": "#696969",
+    "secondaryText": "#e5e5e5",
+    "gray200": "#e4e4e4",
+    "gray400": "#b6b6b6",
+    "gray700": "#444444",
+    "white": "#FFFFFF"
   }
 }

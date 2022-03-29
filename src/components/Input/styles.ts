@@ -2,28 +2,25 @@ import styled from 'styled-components';
 
 import config from '../../config.json';
 
-export const InputStyle = styled.input`
-  border: 2px solid ${config.colors.primaryBorder};
-  -webkit-appearance: none;
-  appearance: none;
-  background: none;
-  padding: 12px;
-  border-radius: 3px;
-  width: ${(props) => props.width || '220px'};
-  outline: none;
-  font-size: 14px;
-  transition: border-color 0.3 ease;
-  box-sizing: border-box;
-  font-family: 'Montserrat';
+type ContainerInputType = {
+  width: string;
+}
 
-  &:focus {
-    border-color: ${config.colors.primaryTitle};
-    transition-delay: 0.1s;
-  }
+export const Container = styled.div<ContainerInputType>`
+  width: ${props => props.width};
+`;
+
+export const InputStyle = styled.input`
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: ${config.colors.gray400};
+  font-family: 'Montserrat';
+  border: none;
+  outline: none;
 
   &:disabled {
     cursor: not-allowed;
-    background-color: rgb(0, 0, 0, 0.1);
   }
 `;
 

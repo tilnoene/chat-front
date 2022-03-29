@@ -16,13 +16,11 @@ const ChatMessageRight = (
 ) => {
   return (
     <Container>
-      <h3>{name} <i>({username})</i></h3>
-
       <Content>
         <p>{text}</p>
       </Content>
       
-      <footer><p>{formatDate(date)}</p></footer>
+      { /* <footer><p>{formatDate(date)}</p></footer> */  }
     </Container>
   );
 }

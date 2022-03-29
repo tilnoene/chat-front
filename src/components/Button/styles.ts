@@ -11,7 +11,7 @@ export const ContainerButton = styled.button<ContainerButtonType>`
   width: ${props => props.width};
   height: 40px;
   padding: 0 26px;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
 
