@@ -1,6 +1,6 @@
 import { formatDate } from '../../services/utils';
 import Icon from '../Icon';
-import { Container, Content } from './styles';
+import { ContainerMessage, Content } from './styles';
 
 const ChatMessageRight = (
   {
@@ -16,13 +16,13 @@ const ChatMessageRight = (
   }
 ) => {
   return (
-    <Container>
+    <ContainerMessage>
       <Content>
         <p>{text}</p>
       </Content>
       
       { /* <footer><p>{formatDate(date)}</p></footer> */  }
-    </Container>
+    </ContainerMessage>
   );
 }
 

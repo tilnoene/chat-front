@@ -1,6 +1,10 @@
 import { formatDate } from '../../services/utils';
-import Icon from '../Icon';
-import { Container, Content } from './styles';
+import { Content, ContainerMessage, ProfilePicture, Header, ContainerIcons } from './styles';
+
+import { RiPencilFill } from 'react-icons/ri';
+import { HiTrash } from 'react-icons/hi';
+
+import config from '../../config.json';
 
 const ChatMessageLeft = ({
   name,
@@ -16,16 +20,26 @@ const ChatMessageLeft = ({
   profilePictureUrl?: string | undefined;
 }) => {
   return (
-    <Container>
-      <Icon src={profilePictureUrl} alt={`${username} profile`} size='medium' />
+    <ContainerMessage>
+      <ProfilePicture src={profilePictureUrl} alt={`${username} profile picture`} />
 
       <Content>
-        <h4>{name}</h4>
+        <Header>
+          <h4>{name}</h4>
+
+          <ContainerIcons>
+            <RiPencilFill size={20} color={config.colors.gray700} />
+            <HiTrash size={20} color={config.colors.gray700} />
+          </ContainerIcons>
+        </Header>
+
         <p>{text}</p>
+
+        <footer>
+          <p>{formatDate(date)}</p>
+        </footer>
       </Content>
-      
-      {/* <footer><p>{formatDate(date)}</p></footer> */}
-    </Container>
+    </ContainerMessage>
   );
 };
 
