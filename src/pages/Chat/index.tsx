@@ -24,6 +24,10 @@ type User = {
   username: string;
 };
 
+export type Payload = {
+  text: string;
+}
+
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
@@ -112,21 +116,22 @@ const Chat = () => {
           {messages.map((message: any) =>
             message.isSystem ? (
               <ChatMessageSystem key={message.id} text={message.text} />
-            ) : message.user && message.user.username === userUsername ? (
+            ) : message.user.username === userUsername ? (
               <ChatMessageRight
                 key={message.id}
-                name={message.user && message.user.name}
-                username={message.user && message.user.username}
+                name={message.user.name}
+                username={message.user.username}
                 text={message.text}
                 date={message.createdAt}
               />
             ) : (
               <ChatMessageLeft
                 key={message.id}
-                name={message.user && message.user.name}
-                username={message.user && message.user.username}
+                name={message.user.name}
+                username={message.user.username}
                 text={message.text}
                 date={message.createdAt}
+                profilePictureUrl={message.user?.profilePictureUrl}
               />
             ),
           )}
@@ -134,7 +139,7 @@ const Chat = () => {
 
         <ContainerFooter onSubmit={handleSendMessage}>
           <Input
-            placeholder='Escrever uma mensagem...'
+            placeholder="Escrever uma mensagem..."
             required
             minLength={1}
             maxLength={2000}
@@ -142,11 +147,11 @@ const Chat = () => {
             onChange={(e: any) => setText(e.target.value)}
           />
 
-          <Button type='submit' width='80px'></Button>
+          <Button type="submit" width="80px"></Button>
         </ContainerFooter>
 
         <ToastContainer
-          position='top-right'
+          position="top-right"
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}

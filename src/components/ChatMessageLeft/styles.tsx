@@ -12,6 +12,13 @@ export const Container = styled.div`
   padding: 12px 14px;
   margin-bottom: 32px;
 
+  margin-left: 64px;
+  img {
+    margin-left: -80px;
+    background-color: lightgray;
+    border-radius: 50%;
+  }
+
   footer > p {
     color: #555555;
     font-size: 14px;

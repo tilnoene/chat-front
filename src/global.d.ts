@@ -6,5 +6,6 @@ type Message = {
   user: {
     username: string;
     name: string;
+    profilePictureUrl?: string;
   };
 };

@@ -1,4 +1,5 @@
 import { formatDate } from '../../services/utils';
+import Icon from '../Icon';
 import { Container, Content } from './styles';
 
 const ChatMessageRight = (
@@ -6,12 +7,12 @@ const ChatMessageRight = (
     name, 
     username, 
     text, 
-    date 
+    date,
   }: { 
     name: string,
     username: string, 
     text: string, 
-    date: string
+    date: string,
   }
 ) => {
   return (

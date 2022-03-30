@@ -1,13 +1,13 @@
 import { IconImage } from './styles';
 
 const Icon = ({
-  src,
+  src = undefined,
   alt,
   size = 'small',
   cursor = 'default',
   onClick = undefined,
 }: {
-  src: string;
+  src?: string | undefined;
   alt: string;
   size?: 'small' | 'medium' | 'large';
   cursor?: string;
