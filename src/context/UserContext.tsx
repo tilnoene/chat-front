@@ -10,17 +10,17 @@ type UserContextType = {
 export const UserContext = createContext<UserContextType | null>(null);
 
 const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const [accessToken, setAccessTokenProvider] = useState<string>(sessionStorage.getItem('accessToken') || '');
-  const [userUsername, setUserUsernameProvider] = useState<string>(sessionStorage.getItem('userUsername') || '');
+  const [accessToken, setAccessTokenProvider] = useState<string>(localStorage.getItem('accessToken') || '');
+  const [userUsername, setUserUsernameProvider] = useState<string>(localStorage.getItem('userUsername') || '');
 
   const setAccessToken = ( accessToken: string ): void => {
     setAccessTokenProvider(accessToken);
-    sessionStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', accessToken);
   }
 
   const setUserUsername = ( username: string ): void => {
     setUserUsernameProvider(username);
-    sessionStorage.setItem('userUsername', username);
+    localStorage.setItem('userUsername', username);
   }
 
   return (

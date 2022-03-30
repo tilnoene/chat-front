@@ -19,21 +19,6 @@ import { toastErrorProps } from '../../services/utils';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-type Message = {
-  id: number;
-  text: string;
-  createdAt: string;
-  updatedAt?: string;
-  user: {
-    username: string;
-    name: string;
-  };
-};
-
-type Payload = {
-  text: string;
-};
-
 type User = {
   id: number;
   username: string;
@@ -149,7 +134,7 @@ const Chat = () => {
 
         <ContainerFooter onSubmit={handleSendMessage}>
           <Input
-            placeholder="Escrever uma mensagem..."
+            placeholder='Escrever uma mensagem...'
             required
             minLength={1}
             maxLength={2000}
@@ -157,11 +142,11 @@ const Chat = () => {
             onChange={(e: any) => setText(e.target.value)}
           />
 
-          <Button type="submit" width="80px"></Button>
+          <Button type='submit' width='80px'></Button>
         </ContainerFooter>
 
         <ToastContainer
-          position="top-right"
+          position='top-right'
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
