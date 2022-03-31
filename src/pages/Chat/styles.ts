@@ -22,6 +22,7 @@ export const ContainerHeader = styled.div`
 export const ContainerMessages = styled.div`
   width: 100%;
   display: flex;
+  gap: 16px;
   padding: 8px 18px;
   flex-direction: column-reverse;
   overflow-y: scroll;

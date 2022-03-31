@@ -1,10 +1,6 @@
 import { formatDate } from '../../services/utils';
-import { Content, ContainerMessage, ProfilePicture, Header, ContainerIcons } from './styles';
 
-import { RiPencilFill } from 'react-icons/ri';
-import { HiTrash } from 'react-icons/hi';
-
-import config from '../../config.json';
+import { Content, ContainerMessage, ProfilePicture, Header } from './styles';
 
 const ChatMessageLeft = ({
   name,
@@ -26,11 +22,6 @@ const ChatMessageLeft = ({
       <Content>
         <Header>
           <h4>{name}</h4>
-
-          <ContainerIcons>
-            <RiPencilFill size={20} color={config.colors.gray700} />
-            <HiTrash size={20} color={config.colors.gray700} />
-          </ContainerIcons>
         </Header>
 
         <p>{text}</p>

@@ -54,10 +54,10 @@ const Chat = () => {
       })
       .catch((error) => {
         try {
-          if (error.statusCode === 401) {
+          if (error.response.data.statusCode === 401) {
             navigate('/signin');
           } else {
-            toast.error(error.message, toastErrorProps);
+            toast.error(error.response.data.message, toastErrorProps);
           }
         } catch {
           toast.error('There was an error loading messages', toastErrorProps);
@@ -123,6 +123,7 @@ const Chat = () => {
                 username={message.user.username}
                 text={message.text}
                 date={message.createdAt}
+                profilePictureUrl={message.user?.profilePictureUrl}
               />
             ) : (
               <ChatMessageLeft

@@ -6,6 +6,7 @@ export const ContainerMessage = styled.div`
   width: 280px;
   gap: 12px;
   display: flex;
+  align-self: flex-start;
 `;
 
 export const ProfilePicture = styled.img`
@@ -18,12 +19,10 @@ export const ProfilePicture = styled.img`
 export const Content = styled.div`
   background: ${config.colors.gray200};
 
-  align-self: flex-start;
-
-  width: 280px;
+  width: 220px;
+  word-wrap: break-word;
   border-radius: 0 12px 12px 12px;
   padding: 12px 14px;
-  margin-bottom: 32px;
 
   p {
     text-align: left;
@@ -33,6 +32,7 @@ export const Content = styled.div`
   footer > p {
     text-align: right;
     font-size: 12px;
+    padding-top: 4px;
     margin-bottom: -4px;
     color: ${config.colors.gray400};
   }
@@ -41,18 +41,10 @@ export const Content = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 2px;
 
   h4 {
-    font-size: 14px;
+    font-size: 15px;
     color: ${config.colors.gray700};
-  }
-`;
-
-export const ContainerIcons = styled.div`
-  display: flex;
-  gap: 4px;
-
-  svg {
-    cursor: pointer;
   }
 `;
